@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Home</title>
+
+   <!-- font awesome cdn link  -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+   <!-- custom admin css file link  -->
+   <!-- <link rel="stylesheet" href="css/style.css">-->
+   <link href="css/style1.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container-fluid fixed-top">
+        <div class="container px-0">
+            <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">FlowerWorld</h1></a>
+                <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars text-primary"></span>
+                </button>
+                <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto">
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="orders.html" class="nav-item nav-link">Orders</a>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="testimonial.html" class="nav-item nav-link">Testimonial</a>
+                    </div>
+                    <div class="d-flex m-3 me-0">
+                        <button 
+                            class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#searchModal"
+                            aria-label="Search">
+                            <i class="fas fa-search text-primary"></i>
+                        </button>
+                        <div class="dropdown">
+                            <button 
+                                class="btn dropdown-toggle" 
+                                type="button" 
+                                id="userDropdown" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                                aria-label="User Menu">
+                                <i class="fas fa-user fa-2x"></i>
+                            </button>
+                            <ul class="dropdown-menu m-0 bg-secondary rounded-0" aria-labelledby="userDropdown">
+                                <li id="profile-item"><a href="profile.html" class="dropdown-item">Profile</a></li>
+                                <li id="login-item"><a href="login.html" class="dropdown-item">Login</a></li>
+                                <li id="logout-item" class="d-none"><button class="dropdown-item" onclick="handleLogout()">Logout</button></li>
+                                <li id="register-item"><a href="register.html" class="dropdown-item">Register</a></li>
+    
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-content">
+            <h2>Contact Us</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, officia nisi doloremque fuga error numquam?</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-box">
+                    <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="text">
+                        <h3>Address</h3>
+                        <p>4637u98, Sug Road, <br>Owatona, Minnesota,<br>55060</p>
+                    </div>
+                </div>
+                <div class="contact-box">
+                    <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="text">
+                        <h3>Phone</h3>
+                        <p>0546548949</p>
+                    </div>
+                </div>
+                <div class="contact-box">
+                    <div class="icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="text">
+                        <h3>Email</h3>
+                        <p>support@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <h2>Send Message</h2>
+                    <div class="input-box">
+                        <input type="text" name="" required/>
+                        <span>Full Name</span>
+                    </div>
+
+                    <div class="input-box">
+                        <input type="text" name="" required/>
+                        <span>Email</span>
+                    </div>
+
+                    <div class="input-box">
+                        <textarea></textarea>
+                        <span>Type Your Message Here...</span>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" name="" send="Send">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/flowers.js"></script>
+</body>
+</html>
