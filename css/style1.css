@@ -545,42 +545,49 @@
     margin-top: 30px;
 }
 
-.contact-container .contact-info
-{
-    width:50% !important;
-    display: flex !important;
-    flex-direction: column !important;
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.contact-container .contact-info .contact-box{
-    position: relative;
-    padding: 20px 0;
-    display: flex !important;
-}
-
-.contact-container .contact-info .contact-box .icon{
-    min-width: 60px;
-    height: 60px;
-    background:var(--white);
-    display: flex !important;
-    justify-content: center !important;
+.contact-item {
+    display: flex;
     align-items: center;
-    border-radius: 50%;
-    font-size: 22px;
-}
-.contact-container .contact-info .contact-box p{
-    display: flex !important;
-    margin-left: 20px;
-    font-size: 16px;
-    color:var(--white);
-    flex-direction: column !important;
-    font-weight: 300;
+    gap: 15px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6); /* Optional for better readability */
+    border-radius: 10px;
 }
 
-.contact-container .contact-info .contact-box .text h3{
-    font-weight: 500;
-    color:#00bcd4;
+.contact-item i {
+    font-size: 24px;
+    color: teal;
 }
+
+.contact-item h3 {
+    margin: 0;
+    font-size: 20px;
+    color: teal;
+}
+
+.contact-item p {
+    margin: 0;
+    color: white;
+}
+
+.icon-location::before {
+    content: "\1F4CD"; /* Placeholder for location icon */
+}
+
+.icon-phone::before {
+    content: "\260E"; /* Placeholder for phone icon */
+}
+
+.icon-email::before {
+    content: "\2709"; /* Placeholder for email icon */
+}
+
 
 .contact-form{
     width: 40% !important;

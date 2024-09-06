@@ -123,9 +123,9 @@ const handleLogin = (event) => {
     .then((userData) => {
         // Redirect based on user_type
         if (userData.user_type === "User") {
-            window.location.href = "../index.html";
+            window.location.href = "https://flower-world-frontend.vercel.app/";
         } else if (userData.user_type === "Admin") {
-            window.location.href = "../admin/index.html";
+            window.location.href = "https://flower-world-frontend.vercel.app/admin/index.html/";
         } else {
             // Handle unexpected user_type values
             throw new Error("Unexpected user type");
@@ -185,7 +185,7 @@ const handleRegister = (event) => {
         successAlert.classList.remove("d-none");
         successAlert.innerText = "Registration successful! Redirecting...";
         setTimeout(() => {
-            window.location.href = "index.html";
+            window.location.href = "https://flower-world-frontend.vercel.app/";
         }, 3000);
     })
     .catch((err) => {
@@ -214,7 +214,7 @@ const handleLogout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("user_id")
 
-        window.location.href ="index.html"
+        window.location.href ="https://flower-world-frontend.vercel.app/"
     })
     .catch((err)=> console.log("logout error:: ",err))
 
