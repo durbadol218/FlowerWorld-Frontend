@@ -150,6 +150,7 @@ const addCategory = (event) => {
     event.preventDefault();
     const category = document.getElementById("add_category").value;
     const slug = category.toLowerCase().replace(/\s+/g, '-');
+    console.log(category);
     const info = {
         category_name: category,
         category_slug: slug,
@@ -157,7 +158,7 @@ const addCategory = (event) => {
 
     fetch('https://flowerworld.onrender.com/categories/', {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify(info),
     })
         .then((res) => res.json())
@@ -183,10 +184,9 @@ const allOrders = () => {
 };
 
 const displayAllOrders = (orders) => {
-    const parent = document.getElementById("order_data");
-    parent.innerHTML = ''; // Clear previous content
-
-    orders.forEach((order, index) => {
+    parent.innerHTML = '';
+    let i=1;
+    orders.forEach(order => {
         fetch(`https://flowerworld.onrender.com/flowers/${order.flower}/`)
             .then((res) => {
                 if (!res.ok) {
@@ -195,64 +195,97 @@ const displayAllOrders = (orders) => {
                 return res.json();
             })
             .then((flowerData) => {
+                const parent = document.getElementById("order_data");
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${order.user.first_name}</td>
+                    <td>${i + 1}</td>
+                    <td>${order.user}</td>
                     <td>${flowerData.flower_name}</td>
                     <td>
-                        <select id="status_${order.id}" class="form-select">
+                        <select id="status-${order.id}" class="form-select">
                             <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                            <option value="Successful" ${order.status === 'Successful' ? 'selected' : ''}>Successful</option>
+                            <option value="Processing" ${order.status === 'Processing' ? 'selected' : ''}>Processing</option>
                             <option value="Completed" ${order.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                            <option value="Canceled" ${order.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
+                            <option value="Cancelled" ${order.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
                         </select>
                     </td>
                     <td>
-                        <button class="btn btn-success" onclick="changeStatus(${order.id})">Change Status</button>
-                    </td>
-                    <td>
-                        <a href="vieworder.html?Id=${order.id}" class="btn btn-warning">View Detail</a>
+                        <button class="btn btn-success" onclick="updateOrderStatus(${order.id})">Update Status</button>
                     </td>
                 `;
                 parent.appendChild(row);
             })
-            .catch(error => console.error('Error fetching flower data:', error));
-    });
-};
-
-const changeStatus = (orderId) => {
-    const statusSelect = document.getElementById(`status_${orderId}`);
-    const selectedItem = statusSelect.value;  // Get the selected status
-
-    const info = {
-        order_status: selectedItem,
-    };
-
-    fetch(`https://flowerworld.onrender.com/orders/orders/${orderId}/`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(info),
-    })
-    .then((res) => {
-        if (!res.ok) {
-            return res.json().then((error) => {
-                throw new Error(`Network response was not ok: ${res.status} - ${error.message}`);
+            .catch(error => {
+                    console.error('Error fetching flower data:', error);
             });
-        }
-        return res.json();
-    })
-    .then((data) => {
-        console.log('Order status updated:', data);
-        alert(`Order ${orderId} status updated to ${selectedItem}`);
-        allOrders();  // Re-fetch all orders to update the table
-    })
-    .catch((error) => {
-        console.error('Error updating order status:', error);
     });
 };
 
 allOrders();
+
+const updateOrderStatus = (orderId) => {
+    // Get the selected status from the dropdown
+    const newStatus = document.getElementById(`status-${orderId}`).value;
+
+    // API URL to update the order status
+    const updateStatusApiUrl = `https://flowerworld.onrender.com/orders/${orderId}/`;
+
+    // Send the updated status to the server using a PATCH request
+    fetch(updateStatusApiUrl, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': `Token ${localStorage.getItem("token")}`,  // Ensure token is available
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: newStatus })  // Send the new status as a JSON payload
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error updating order status');
+        }
+        return response.json();
+    })
+    .then(updatedOrder => {
+        alert(`Order status updated to ${updatedOrder.status}`);
+        // Optionally refresh the table or row to reflect the updated status
+    })
+    .catch(error => console.error('Error updating order status:', error));
+};
+
+
+
+// const changeStatus = (orderId) => {
+//     const statusSelect = document.getElementById(`status_${orderId}`);
+//     const selectedItem = statusSelect.value;  // Get the selected status
+
+//     const info = {
+//         order_status: selectedItem,
+//     };
+
+//     fetch(`https://flowerworld.onrender.com/orders/orders/${orderId}/`, {
+//         method: "PATCH",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(info),
+//     })
+//     .then((res) => {
+//         if (!res.ok) {
+//             return res.json().then((error) => {
+//                 throw new Error(`Network response was not ok: ${res.status} - ${error.message}`);
+//             });
+//         }
+//         return res.json();
+//     })
+//     .then((data) => {
+//         console.log('Order status updated:', data);
+//         alert(`Order ${orderId} status updated to ${selectedItem}`);
+//         allOrders();  // Re-fetch all orders to update the table
+//     })
+//     .catch((error) => {
+//         console.error('Error updating order status:', error);
+//     });
+// };
+
+// allOrders();
 
 //Display All Orders
 // const allOrders = () => {
@@ -302,12 +335,15 @@ allOrders();
 
 
 
+
+
+
 function loadAllUsers() {
     fetch('https://flowerworld.onrender.com/user/users/')
         .then(response => response.json())
         .then(data => {
             const parent = document.getElementById("user_table");
-            parent.innerHTML = ''; // Clear any previous data
+            parent.innerHTML = '';
             
             data.forEach((user, index) => {
                 const row = document.createElement("tr");

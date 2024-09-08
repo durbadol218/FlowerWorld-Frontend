@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error fetching categories:", error);
             });
     }
-
     // Function to load and display flowers based on the selected category
     function loadFlowers(categoryId = "") {
         let url = apiUrl;
@@ -208,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const ordersApiUrl = "https://flowerworld.onrender.com/orders/orders/";
     const ordersContainer = document.getElementById("orders-container");
+    const userId = localStorage.getItem("user_id");
 
     function loadOrders() {
         fetch(ordersApiUrl, {
@@ -219,7 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(orders => {
             ordersContainer.innerHTML = "";
-            orders.forEach(order => {
+            const user_orders = orders.filter(order => order.user_id === userId);
+            user_orders.forEach(order => {
                 const orderCard = `
                     <div class="order-card">
                         <h4>Order ID: ${order.id}</h4>
@@ -237,6 +238,5 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error fetching orders:", error);
         });
     }
-
     loadOrders();
 });
