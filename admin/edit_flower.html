@@ -1,65 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Flower</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script defer src="admin_admin.js"></script> <!-- Link to your JavaScript file -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1 class="mt-5">Edit Flower</h1>
-        <form id="edit_flower_form" onsubmit="editflower(event)">
-            <div class="form-group">
-                <label for="edit_flower_name">Flower Name</label>
-                <input type="text" id="edit_flower_name" class="form-control" required>
+    <div class="container mt-5">
+        <h1 class="text-center">Edit Flower</h1>
+        <form id="editFlowerForm">
+            <div class="mb-3">
+                <label for="flower_name">Flower Name</label>
+                <input type="text" class="form-control" id="flower_name" name="flower_name" required>
             </div>
-            <div class="form-group">
-                <label for="edit_flower_price">Flower Price</label>
-                <input type="number" id="edit_flower_price" class="form-control" step="0.01" required>
+            <div class="mb-3">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" id="price" name="price" required>
             </div>
-            <div class="form-group">
-                <label for="edit_flower_quantity">Flower Quantity</label>
-                <input type="number" id="edit_flower_quantity" class="form-control" required>
+            <div class="mb-3">
+                <label for="stock">Stock</label>
+                <input type="number" class="form-control" id="stock" name="stock" required>
             </div>
-            <div class="form-group">
-                <label for="edit_flower_description">Flower Description</label>
-                <textarea id="edit_flower_description" class="form-control" rows="3" required></textarea>
+            <div class="mb-3">
+                <label for="description">Description</label>
+                <textarea id="description" class="form-control" name="description" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="select_category">Category</label>
-                <select id="select_category" class="form-control" required>
-                    <!-- Populate categories dynamically -->
+            <div class="mb-3">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <!-- Category options will be populated here dynamically -->
                 </select>
             </div>
-            <div class="form-group">
-                <label for="edit_flower_image">Flower Image</label>
-                <input type="file" id="edit_flower_image" class="form-control">
-                <img id="preview_image" src="" alt="Image preview" style="max-width: 200px; margin-top: 10px;">
+            <div class="mb-3">
+                <label for="image">Image</label>
+                <input type="file" class="form-control" id="image" name="image">
             </div>
-            <button type="submit" class="btn btn-primary">Update Flower</button>
-            <a href="allflowers.html" class="btn btn-secondary">Back to List</a>
+            <button type="submit" class="btn btn-success">Update Flower</button>
         </form>
     </div>
-
-    <script>
-        // Function to load the flower data for editing
-        window.onload = () => {
-            const param = new URLSearchParams(window.location.search).get("Id");
-
-            fetch(`https://flowerworld.onrender.com/flowers/flowers/${param}`)
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById("edit_flower_name").value = data.flower_name;
-                    document.getElementById("edit_flower_price").value = data.price;
-                    document.getElementById("edit_flower_quantity").value = data.stock;
-                    document.getElementById("edit_flower_description").value = data.flower_description;
-                    document.getElementById("select_category").value = data.category;
-                    document.getElementById("preview_image").src = data.flower_image;
-                })
-                .catch(error => console.error('Error fetching flower data:', error));
-        };
-    </script>
+    <script src="editflower.js"></script>
 </body>
+
 </html>

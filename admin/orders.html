@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      body {
+        body {
             font-family: 'Arial', sans-serif;
         }
 
@@ -112,99 +113,92 @@
         .card-body {
             padding: 20px;
         }
-    body {
-        background-color: #f8f9fa;
-    }
-    .container {
-        max-width: 600px;
-        margin-top: 50px;
-        padding: 30px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #343a40;
-    }
-    .btn-primary {
-        width: 100%;
-        padding: 10px;
-        font-size: 18px;
-        background-color: #007bff;
-        border: none;
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-    label {
-        font-weight: bold;
-        color: #495057;
-    }
-  </style>
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+    </style>
 </head>
+
 <body>
 
-  <aside class="sidebar">
-    <div class="brand-logo">
-        FlowerWorld
-    </div>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-          <a class="nav-link active" href="index.html">Home</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="add_flower.html">Add Flower</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="category.html">Add Category</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="all_flowers.html">All Flowers</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="orders.html">All Orders</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="all_users.html">All Users</a>
-    </li>
-  </ul>
-</aside>
-<div class="content-wrapper">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-        <a class="navbar-brand" href="#">FlowerWorld</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <button class="btn btn-info" onclick="handleLogout()">Log Out</button>
-                </li>
-            </ul>
+    <aside class="sidebar">
+        <div class="brand-logo">
+            FlowerWorld
         </div>
-    </nav>
-    <header>
-        <h1 class="mb-4">Dashboard</h1>
-    </header>
-    <div class="container">
-        <h1>All Orders</h1>
-        <table class="table">
-          <thead>
-              <tr>
-                  <th>#</th>
-                  <th>Customer Id</th>
-                  <th>Flower Name</th>
-                  <th>Current Status</th>
-                  <th>Actions</th>
-              </tr>
-          </thead>
-          <tbody id="order_data">
-              <!-- Rows will be dynamically inserted here -->
-          </tbody>
-      </table>
-      </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="add_flower.html">Add Flower</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="category.html">Add Category</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="all_flowers.html">All Flowers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="orders.html">All Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="all_users.html">All Users</a>
+            </li>
+        </ul>
+    </aside>
+    <div class="content-wrapper">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <a class="navbar-brand" href="#">FlowerWorld</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-info" onclick="handleLogout()">Log Out</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <header>
+            <h1 class="mb-4">Dashboard</h1>
+        </header>
+        <div class="container">
+            <h1>All Orders</h1>
+            <div id="admin-orders" class="orders-container">
+                <!-- Fetched orders will be displayed here -->
+            </div>
+        </div>
 
-<script src="admin_admin.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="admin_admin.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

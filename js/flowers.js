@@ -201,42 +201,53 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFlowers();
 });
 
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
     const ordersApiUrl = "https://flowerworld.onrender.com/orders/orders/";
     const ordersContainer = document.getElementById("orders-container");
     const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+
+    console.log("Logged-in User ID:", userId);
 
     function loadOrders() {
         fetch(ordersApiUrl, {
             method: 'GET',
             headers: {
-                'Authorization': `Token ${localStorage.getItem("token")}`  // Ensure token is available
+                'Authorization': `Token ${token}`
             }
         })
         .then(response => response.json())
         .then(orders => {
+            console.log("Fetched Orders:", orders);
+
             ordersContainer.innerHTML = "";
-            const user_orders = orders.filter(order => order.user_id === userId);
-            user_orders.forEach(order => {
-                const orderCard = `
-                    <div class="order-card">
-                        <h4>Order ID: ${order.id}</h4>
-                        <p>Flower: ${order.flower_name}</p>
-                        <p>Quantity: ${order.quantity}</p>
-                        <p>Total Amount: $${order.total_amount}</p>
-                        <p>Status: ${order.status}</p>
-                        <p>Placed Time: ${new Date(order.placed_time).toLocaleString()}</p>
-                    </div>
-                `;
-                ordersContainer.innerHTML += orderCard;
-            });
+
+            // Filter orders for the logged-in user
+            const user_orders = orders.filter(order => String(order.user) === String(userId));
+            console.log("Filtered User Orders:", user_orders);  // Debugging: Verify filtered orders
+
+            if (user_orders.length === 0) {
+                ordersContainer.innerHTML = "<p>No orders found for this user.</p>";
+            } else {
+                user_orders.forEach(order => {
+                    const orderCard = `
+                        <div class="order-card">
+                            <h4>Order ID: ${order.id}</h4>
+                            <p>Flower: ${order.flower_name}</p>
+                            <p>Quantity: ${order.quantity}</p>
+                            <p>Total Amount: $${order.total_amount}</p>
+                            <p>Status: ${order.status}</p>
+                            <p>Placed Time: ${new Date(order.placed_time).toLocaleString()}</p>
+                        </div>
+                    `;
+                    ordersContainer.innerHTML += orderCard;
+                });
+            }
         })
         .catch(error => {
             console.error("Error fetching orders:", error);
         });
     }
+
     loadOrders();
 });
