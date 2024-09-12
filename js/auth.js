@@ -200,83 +200,14 @@ const handleLogin = (event) => {
     });
 };
 
-// const handleLogin = (event) => {
-//     event.preventDefault();
-
-//     const form = document.getElementById("loginForm");
-//     const formData = new FormData(form);
-//     const loginData = {
-//         username: formData.get("username"),
-//         password: formData.get("password"),
-//     };
-//     console.log(username, password);
-//     const successAlert = document.getElementById("login-alert-success");
-//     const errorAlert = document.getElementById("login-alert-error");
-//     successAlert.classList.add("d-none");
-//     errorAlert.classList.add("d-none");
-
-//     fetch("https://flowerworld.onrender.com/user/login/", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(loginData),
-//     })
-//     .then((response) => {
-//         if (!response.ok) {
-//             return response.json().then((data) => {
-//                 throw new Error(data.error || "Invalid username or password");
-//             });
-//         }
-//         return response.json();
-//     })
-//     .then((data) => {
-//         console.log("Login Response Data: ", data);
-//         if (!data.token || !data.user_id) {
-//             throw new Error("Invalid login response from server");
-//         }
-//         localStorage.setItem("token", data.token);
-//         localStorage.setItem("user_id", data.user_id);
-
-//         // Fetch user data to determine user type
-//         return fetch(`https://flowerworld.onrender.com/user/users/${data.user_id}/`, {
-//             method: "GET",
-//             headers: {
-//                 "Authorization": `Bearer ${data.token}`,
-//             }
-//         });
-//     })
-//     .then((response) => {
-//         if (!response.ok) {
-//             throw new Error("Failed to fetch user data");
-//         }
-//         return response.json();
-//     })
-//     .then((userData) => {
-//         console.log("User Data: ", userData);
-//         // Redirect based on user_type
-//         if (userData.user_type === "User") {
-//             window.location.href = "index.html";
-//         } else if (userData.user_type === "Admin") {
-//             window.location.href = "admin/index.html";
-//         } else {
-//             // Handle unexpected user_type values
-//             throw new Error("Unexpected user type");
-//         }
-//     })
-//     .catch((err) => {
-//         console.error("Login error:", err);
-//         errorAlert.classList.remove("d-none");
-//         errorAlert.innerText = err.message || "Invalid username or password. Please try again.";
-//     });
-// };
-
-
 
 
 const handleLogout = () => {
     const token = localStorage.getItem('token')
-
+    if(!token) {
+        console.log('No token found in localStorage');
+        return;
+    }
     fetch("https://flowerworld.onrender.com/user/logout/", {
         method : "POST",
         headers: {
@@ -286,7 +217,7 @@ const handleLogout = () => {
     })
     .then((res)=> res.json())
     .then((data)=> {
-        console.log(data);
+        console.log('Logout response:',data);
         localStorage.removeItem("token")
         localStorage.removeItem("user_id")
 
