@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const flowerContainer = document.getElementById("flower-container");
     const categorySelect = document.getElementById("category-select");
 
-    // Function to load and display categories in the dropdown
     function loadCategories() {
         fetch(categoryApiUrl)
             .then((response) => response.json())
@@ -20,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error fetching categories:", error);
             });
     }
-    // Function to load and display flowers based on the selected category
     function loadFlowers(categoryId = "") {
         let url = apiUrl;
         if (categoryId) {
@@ -56,14 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
                     flowerContainer.innerHTML += flowerCard;
                 });
-                attachBuyNowListeners(); // Re-attach listeners after flowers are loaded
+                attachBuyNowListeners();
             })
             .catch((error) => {
                 console.error("Error fetching flowers:", error);
             });
     }
 
-    // Function to attach event listeners to Buy Now buttons
     function attachBuyNowListeners() {
         document.querySelectorAll('.buy-now-btn').forEach(button => {
             button.addEventListener('click', function(event) {
@@ -103,7 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCategories();
     loadFlowers();
 
-    // Event listener for category selection
     categorySelect.addEventListener("change", () => {
         const selectedCategory = categorySelect.value;
         loadFlowers(selectedCategory);
